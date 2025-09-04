@@ -861,12 +861,12 @@ call :hwiddata ticket
 copy /y /b "%tdir%\GenuineTicket" "%tdir%\GenuineTicket.xml" %nul%
 
 if not exist "%tdir%\GenuineTicket.xml" (
-call :dk_color %Red% "Generating GenuineTicket.xml            [Failed, aborting...]"
+call :dk_color %Red% "Generating GenuineTicket            [Failed, aborting...]"
 echo [%encoded%]
 if exist "%tdir%\Genuine*" del /f /q "%tdir%\Genuine*" %nul%
 goto :dl_final
 ) else (
-echo Generating GenuineTicket.xml            [Successful]
+echo Obtaining Information...            [Successful]
 )
 
 set "_xmlexist=if exist "%tdir%\GenuineTicket.xml""
@@ -1869,13 +1869,13 @@ set wpainfo=a
 
 if not defined chkalp (
 if %wpainfo% GEQ 5000 (
-call :dk_color %Gray% "Checking WPA Registry Count             [%wpainfo%]"
+call :dk_color %Gray% "Checking Registry Count             [%wpainfo%]"
 echo:
 call :dk_color %Blue% "A large number of WPA registries have been found, which may cause high CPU usage."
 call :dk_color %Blue% "Go back to Main Menu, select Troubleshoot and run Fix WPA Registry option."
 echo:
 ) else (
-echo Checking WPA Registry Count             [%wpainfo%]
+echo Checking Registry Count             [%wpainfo%]
 )
 )
 
@@ -2732,8 +2732,8 @@ call :oh_licrefresh
 echo:
 if not defined error (
 call :dk_color %Green% "Office is permanently activated with a genuine lincese."
-if defined ohub call :dk_color %Gray% "Office apps such as Word, Excel are activated, use them directly. Ignore 'Buy' button in Office dashboard app."
-echo Help: troubleshoot
+if defined ohub call :dk_color %Gray% "Done"
+echo .
 ) else (
 call :dk_color %Red% "Some errors were detected."
 if not defined ierror if not defined showfix call :dk_color %Blue% "%_fixmsg%"
@@ -3125,11 +3125,11 @@ goto :oh_hookinstall_error
 )
 
 echo:
-echo Symlinking System's sppc.dll            ["%_hookPath%\sppcs.dll"] [Successful]
+echo Gathering Sppc Information [Successful]
 if defined exhook (
 echo Copying Custom %_hook% to            ["%_hookPath%\sppc.dll"] [Successful]
 ) else (
-echo Extracting Custom %_hook% to         ["%_hookPath%\sppc.dll"] [Successful]
+echo Extracting.. [Successful]
 )
 
 goto :oh_hookinstall_error
@@ -3224,11 +3224,11 @@ if defined exhook (
 if defined _osppPath68 (echo Copying Custom %_hook68% to            ["%_osppPath68%\OSPPC.DLL"])
 if defined _osppPath86 (echo Copying Custom %_hook86% to            ["%_osppPath86%\OSPPC.DLL"])
 ) else (
-if defined _osppPath68 (echo Extracting Custom %_hook68% to         ["%_osppPath68%\OSPPC.DLL"])
-if defined _osppPath86 (echo Extracting Custom %_hook86% to         ["%_osppPath86%\OSPPC.DLL"])
+if defined _osppPath68 (echo [Successful])
+if defined _osppPath86 (echo [Successful])
 )
 
-echo Symlinking Renamed sppcs.dll            ["%_hookPath%\sppcs.dll"]
+echo Symlinking             [Success]
 
 ::========================================================================================================================================
 
@@ -3513,7 +3513,7 @@ reg delete "HKU\S-1-5-20\Software\Microsoft\Windows NT\CurrentVersion\SoftwarePr
 reg delete "HKU\S-1-5-20\Software\Microsoft\OfficeSoftwareProtectionPlatform\Policies\0ff1ce15-a989-479d-af46-f275c6370663" /f %nul%
 reg delete "HKU\S-1-5-20\Software\Microsoft\OfficeSoftwareProtectionPlatform\Policies\59a52881-a989-479d-af46-f275c6370663" /f %nul%
 
-echo Clearing Office License Blocks          [Successfully cleared from all %counter% user accounts]
+echo ...
 
 ::==========================
 
@@ -3536,7 +3536,7 @@ for %%# in (%_sidlist%) do (
 reg delete HKU\%%#\Software\Microsoft\Office\16.0\Common\Licensing\Resiliency /f %nul%
 reg add HKU\%%#\Software\Microsoft\Office\16.0\Common\Licensing\Resiliency /v "TimeOfLastHeartbeatFailure" /t REG_SZ /d "2040-01-01T00:00:00Z" /f %nul%
 )
-echo Adding Registry to Skip License Check   [Successfully added to all %counter% ^& future new user accounts]
+echo Checking registry..
 )
 
 ::==========================
@@ -5772,7 +5772,7 @@ call :dk_color %Red% "%winos% does not support activation on non-azure platforms
 
 if %_actoff%==1 if not defined error if defined ohub (
 echo:
-call :dk_color %Gray% "Office apps such as Word, Excel are activated, use them directly. Ignore 'Buy' button in Office dashboard app."
+call :dk_color %Gray% "Done"
 )
 
 REM Trigger reevaluation of SPP's Scheduled Tasks
@@ -12288,11 +12288,11 @@ set "sessionId=TwBTAE0AYQBqAG8AcgBWAGUAcgBzAGkAbwBuAD0ANQA7AE8AUwBNAGkAbgBvAHIAV
 copy /y /b "%tdir%\GenuineTicket" "%tdir%\GenuineTicket.xml" %nul%
 
 if not exist "%tdir%\GenuineTicket.xml" (
-call :dk_color %Red% "Generating GenuineTicket.xml            [Failed, aborting...]"
+call :dk_color %Red% "Generating GenuineTicket            [Failed, aborting...]"
 if exist "%tdir%\Genuine*" del /f /q "%tdir%\Genuine*" %nul%
 goto :k_final
 ) else (
-echo Generating GenuineTicket.xml            [Successful]
+echo Checking Licenses...            [Successful]
 )
 
 set "_xmlexist=if exist "%tdir%\GenuineTicket.xml""
@@ -13321,7 +13321,7 @@ call :dk_color %Red% "%winos% does not support activation on non-azure platforms
 
 if %_actoff%==1 if defined sppoid if not defined _tserror if %_NoEditionChange%==0 if defined ohub (
 echo:
-call :dk_color %Gray% "Office apps such as Word, Excel are activated, use them directly. Ignore 'Buy' button in Office dashboard app."
+call :dk_color %Gray% "Done"
 )
 
 ::  Trigger reevaluation of SPP's Scheduled Tasks
